@@ -1,0 +1,40 @@
+html{
+	height: 100%;
+}
+
+.character{
+	border: solid 1px;
+	width: 160px;
+}
+
+.character img{
+	height: 150px;
+	width: auto;
+}
+
+.start-position{
+	display: inline-block;
+	position: relative;
+	border: dashed 1px red;
+}
+
+.characters-start{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	height: 250px;
+	width: 900px;
+	border-radius: 3px;
+}
+
+.attack-ai{
+	visibility: hidden;
+	display: none;
+}
+
+.attack-player{
+	visibility: visible;
+}
