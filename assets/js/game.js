@@ -29,7 +29,10 @@ new CreateCharacter("General Grevious","assets/images/characters/grevious.jpg", 
 new CreateCharacter("Count Doku","assets/images/characters/doku.jpg", 40, 10, 5, 1);
 
 $(".select").on("click", function(){
-	var selected = "#" + $(this).attr("data-character") + "attack";
+	var player = $(this).attr("data-character");
+	var selected = "#" + player + "attack";
+
+
 	console.log(selected);
 	$(selected).removeClass("invisible");
 	$(selected).addClass("visible");
@@ -39,32 +42,33 @@ $(".select").on("click", function(){
 	characterLoop("#", "select", "visible" ,"remove");
 	characterLoop("#", "select", "invisible" ,"add",);
 
-	selectOponent();
+	selectOpponent(player);
 
 });
 
-function selectOpponent(){
-	characterLoop("#", "opponent", "visible" ,"remove");
+function selectOpponent(playerChar){
+	characterLoop("#", "opponent", "visible" ,"add", playerChar);
+	characterLoop("#", "opponent", "invisible" ,"remove", playerChar);
 }
 
-function characterLoop(selector, selectorName, elementName = "", action){
+function characterLoop(selector, selectorName, elementName = "", action, ignoreCharacter = ""){
 	for (var i = 0; i < characterNames.length; i++) {
-		var element = selector + characterNames[i] + selectorName;
+		if(characterNames[i] != ignoreCharacter){
+			var element = selector + characterNames[i] + selectorName;
 
-		console.log(element);
-
-		switch(action){
-			case action = "add":
-				$(element).addClass(elementName);
-				break;
-			case action = "remove":
-				$(element).removeClass(elementName)
-				break;
-			case action = "css":
-				$(element).css("visibility", value);
-				break;
-			default:
-				break;
+			switch(action){
+				case action = "add":
+					$(element).addClass(elementName);
+					break;
+				case action = "remove":
+					$(element).removeClass(elementName)
+					break;
+				case action = "css":
+					$(element).css("visibility", value);
+					break;
+				default:
+					break;
+			}
 		}
 	}
 }
