@@ -30,11 +30,12 @@ html{
 	border-radius: 3px;
 }
 
-.attack-ai{
-	visibility: hidden;
-	display: none;
+.visible{
+	visibility: visible;
+	display: block;
 }
 
-.attack-player{
-	visibility: visible;
+.invisible{
+	visibility: hidden;
+	display: none;
 }

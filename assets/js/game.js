@@ -11,7 +11,7 @@ function CreateCharacter(name,image, health, attack, counter, weapons){
 	this.createProfile = function(){
 		//Create Div for character profile
 		
-		var appendHtml = "<div id=\"#" + this.id + "\" class=\"character start-position\"><img src=\"" + this.image + "\"><div class=\"characterStats\"><div>Name: <span class=\"name\">" + this.name + "</span></div><div>Health: <span class=\"health\">" + this.health + "</span></div><div>Name: <span class=\"Attack\">" + this.attack + "</span></div><div>Counter: <span class=\"counter\">" + this.counter + "</span></div><button id=\"" + this.id + "select\" class=\"select\" data-character=\"" + this.id + "\" type=\"button\">Select</button><button id=\"" + this.id + "attack\" type=\"button\" class=\"attack-ai\" data-character=\"" + this.id + "\">Attack</button";
+		var appendHtml = "<div id=\"#" + this.id + "\" class=\"character start-position\"><img src=\"" + this.image + "\"><div class=\"characterStats\"><div>Name: <span class=\"name\">" + this.name + "</span></div><div>Health: <span class=\"health\">" + this.health + "</span></div><div>Name: <span class=\"Attack\">" + this.attack + "</span></div><div>Counter: <span class=\"counter\">" + this.counter + "</span></div><button id=\"" + this.id + "select\" class=\"visible select\" data-character=\"" + this.id + "\" type=\"button\">Select</button><button id=\"" + this.id + "attack\" type=\"button\" class=\"invisible\" data-character=\"" + this.id + "\">Attack</button><button id=\"" + this.id + "opponent\" type=\"button\" class=\"invisible\" data-character=\"" + this.id + "\">Opponent</button>";
 		$(".board").prepend(appendHtml);
 	};
 	this.createProfile();
@@ -31,21 +31,34 @@ new CreateCharacter("Count Doku","assets/images/characters/doku.jpg", 40, 10, 5,
 $(".select").on("click", function(){
 	var selected = "#" + $(this).attr("data-character") + "attack";
 	console.log(selected);
-	$(selected).removeClass("attack-ai");
-	$(selected).addClass("attack-player");
+	$(selected).removeClass("invisible");
+	$(selected).addClass("visible");
 
-	characterloop("#", "select", "css", "hidden");
+	
+	// consider switch to individual classes for the buttons so that you can modify the css directly without having to add and remove classes
+	characterLoop("#", "select", "visible" ,"remove");
+	characterLoop("#", "select", "invisible" ,"add",);
+
+	selectOponent();
+
 });
 
-function characterloop(selector, elementType, action, value){
+function selectOpponent(){
+	characterLoop("#", "opponent", "visible" ,"remove");
+}
+
+function characterLoop(selector, selectorName, elementName = "", action){
 	for (var i = 0; i < characterNames.length; i++) {
-		var element = selector + characterNames[i] + elementType;
+		var element = selector + characterNames[i] + selectorName;
+
+		console.log(element);
 
 		switch(action){
 			case action = "add":
+				$(element).addClass(elementName);
 				break;
 			case action = "remove":
-				$(element).removeClass()
+				$(element).removeClass(elementName)
 				break;
 			case action = "css":
 				$(element).css("visibility", value);
